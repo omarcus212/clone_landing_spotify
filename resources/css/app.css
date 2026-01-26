@@ -1,0 +1,93 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+* Reset e correção geral de scroll horizontal indesejado */ html,
+body {
+    overflow-x: hidden !important;
+    /* bloqueia scroll horizontal no body/html */
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Scrollbar global customizada - estilo escuro (Spotify-like) */
+* {
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: #1E1E1E #121212;
+    /* Firefox */
+}
+
+/* WebKit browsers (Chrome, Safari, Edge, Opera) */
+::-webkit-scrollbar {
+    width: 8px;
+    /* espessura da barra (pode aumentar para 10px se quiser mais visível) */
+    height: 8px;
+    /* para scroll horizontal, se houver */
+}
+
+::-webkit-scrollbar-track {
+    background: #121212;
+    /* fundo da trilha */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1E1E1E;
+    /* cor da "bolinha" que arrasta */
+    border-radius: 10px;
+    border: 2px solid #121212;
+    /* borda interna para dar um "espaçamento" bonito */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2A2A2A;
+    /* um tom um pouco mais claro ao passar o mouse */
+}
+
+/* Para quando o scroll está desativado/invisível */
+::-webkit-scrollbar-corner {
+    background: #121212;
+}
+
+/* Ajustes específicos para resolução 1366 × 768 (e próximas resoluções parecidas) */
+@media screen and (min-width: 1024px) and (max-width: 1400px) and (max-height: 800px) {
+
+    body {
+        overflow-x: hidden !important;
+        /* bloqueia scroll horizontal no body/html */ 
+    }
+
+    /* Banner: reduz um pouco a altura para dar mais espaço pro form */
+    .banner-container {
+        height: inherit !important;
+        min-height: 600px !important;
+    }
+
+    .banner-container img{
+        width: 80%;
+        margin-top: -10rem;
+    }
+
+    .form-container{
+        padding: 40px;
+    }
+
+}
+

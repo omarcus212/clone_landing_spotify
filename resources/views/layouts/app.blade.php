@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>@yield('title', 'Meu App')</title>
+
+    @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body class="w-screen h-screen bg-black no-scrollbar-x">
+    {{-- Conteúdo da página --}}
+    <main class="w-screen h-screen">
+        @yield('content')
+    </main>
+
+    {{-- SweetAlert --}}
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+            });
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                html: `{!! implode('<br>', $errors->all()) !!}`,
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+            });
+        </script>
+    @endif
+
+</body>
+
+</html>
