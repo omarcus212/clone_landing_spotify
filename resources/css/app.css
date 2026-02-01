@@ -10,7 +10,6 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-* Reset e correção geral de scroll horizontal indesejado */ html,
 body {
     overflow-x: hidden !important;
     /* bloqueia scroll horizontal no body/html */
