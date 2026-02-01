@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Meu App')</title>
 
     @vite('resources/css/app.css')
@@ -46,6 +47,21 @@
         </script>
     @endif
 
+    @if (session('status'))
+        <script>
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: '{{ session('status') }}',
+                showConfirmButton: false,
+                timer: 2500,
+                timerProgressBar: true,
+            });
+        </script>
+    @endif
+
+    @vite('resources/js/layouts/lang.js')
 </body>
 
 </html>

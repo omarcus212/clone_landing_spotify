@@ -57,3 +57,41 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+1. Login bem-sucedido
+
+Acesse a página de login
+Digite credenciais válidas e submeta
+Verifique se foi redirecionado para o dashboard (ou página esperada)
+Confirme que a mensagem de sucesso aparece em português
+
+2. Login com credenciais erradas
+
+Coloque um email válido mas senha errada
+Submeta e verifique se a mensagem de erro aparece em português
+Faça o mesmo com email inválido e senha qualquer
+
+3. Campos obrigatórios
+
+Deixe email e senha em branco e submeta
+Verifique se as mensagens de validação aparecem em português
+Teste também deixando apenas um dos campos preenchido
+
+4. Teste do idioma durante o login
+
+Esteja na página de login em português
+Troque para inglês usando o botão
+Submeta com credenciais erradas e confirme que o erro aparece em inglês
+Troque de volta para português e confirme que voltou
+
+5. Sessão após login
+
+Faz login normalmente
+Atualiza a página com F5
+Confirme que ainda está logado e o idioma ainda é português
+
+6. Logout e retorno
+
+Faz logout
+Confirme que foi redirecionado para a página de login
+Verifique se o idioma ainda está em português após o logout

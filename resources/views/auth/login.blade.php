@@ -21,7 +21,7 @@
     <section class="flex flex-col lg:flex-row bg-[#121212] text-white min-h-screen">
 
         <div
-            class="banner-container lg:w-1/2 h-80 sm:h-[60vh] md:h-[70vh] lg:h-screen bg-[#25cf60] flex items-center justify-center overflow-hidden">
+            class="banner-container lg:w-1/2 h-80 sm:h-[40vh] md:h-[40vh] lg:h-screen bg-[#25cf60] flex items-center justify-center overflow-hidden">
             <img src="{{ asset('svg/banner_spotify.svg') }}" alt="Spotify Banner"
                 class="w-auto h-auto object-cover block" />
         </div>
@@ -34,7 +34,7 @@
                 <h1
                     class="text-3xl sm:text-4xl md:text-5xl font-bold text-center flex flex-col justify-center items-center space-y-8 tracking-tight text-white">
                     <img src="{{ asset('svg/min_logo_spotify.svg') }}" alt="Spotify" class="h-8 w-8 mb-2" />
-                    Seja bem-vindo!
+                    {{ __('message.welcome') }}
                 </h1>
 
                 <form method="POST" action="{{ route('login') }}" class="space-y-5 sm:space-y-6">
@@ -42,7 +42,8 @@
 
                     <!-- Email -->
                     <div>
-                        <label for="email" class="block text-sm font-medium text-zinc-400 mb-1.5">E-mail</label>
+                        <label for="email"
+                            class="block text-sm font-medium text-zinc-400 mb-1.5">{{ __('message.email') }}</label>
                         <input id="email" name="email" type="email" placeholder="Email@gmail.com"
                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required value="{{ old('email') }}"
                             class="w-full h-12 px-4 sm:px-5 bg-zinc-900 border border-zinc-700 rounded-md text-white placeholder-zinc-500 focus:border-[#1DB954] focus:ring-2 focus:ring-[#1DB954]/40 focus:outline-none transition text-base" />
@@ -51,15 +52,19 @@
 
                     <!-- Senha -->
                     <div>
-                        <label for="password" class="block text-sm font-medium text-zinc-400 mb-1.5">Senha</label>
+                        <label for="password"
+                            class="block text-sm font-medium text-zinc-400 mb-1.5">{{ __('message.password') }}</label>
                         <input id="password" name="password" type="password" placeholder="********" required
                             class="w-full h-12 px-4 sm:px-5 bg-zinc-900 border border-zinc-700 rounded-md text-white placeholder-zinc-500 focus:border-[#1DB954] focus:ring-2 focus:ring-[#1DB954]/40 focus:outline-none transition text-base" />
                         @error('password') <p class="mt-1.5 text-sm text-red-500">{{ $message }}</p> @enderror
+                        <a href="{{ route('password.request') }}" class="text-[#1DB954] hover:underline font-medium">
+                            {{ __('message.forgot_password') }}
+                        </a>
                     </div>
 
                     <button type="submit"
                         class="w-full h-12 bg-[#1DB954] hover:bg-[#1ed760] text-black font-bold rounded-full text-base sm:text-lg transition duration-200 shadow-md active:scale-95 mt-4">
-                        Continuar
+                        {{ __('message.continue') }}
                     </button>
 
                     <div class="relative my-6 sm:my-8">
@@ -67,11 +72,13 @@
                             <div class="w-full border-t border-zinc-700"></div>
                         </div>
                         <div class="relative flex justify-center text-sm">
-                            <span class="px-4 bg-[#121212] text-zinc-400">ou</span>
+                            <span class="px-4 bg-[#121212] text-zinc-400">{{ __('message.or') }}</span>
                         </div>
                     </div>
+                </form>
 
-                    <button type="button"
+                <form id="auth-google-button" action="{{ route('auth.google') }}">
+                    <button type="button" onclick="{ document.getElementById('auth-google-button').submit(); }"
                         class="w-full h-12 flex items-center justify-center gap-3 bg-white hover:bg-zinc-100 text-black font-medium rounded-full transition duration-200 shadow-md active:scale-95 text-base sm:text-lg">
                         <svg class="h-6 w-6" viewBox="0 0 24 24">
                             <path
@@ -87,15 +94,17 @@
                                 d="M12 4.98c1.64 0 3.11.56 4.27 1.66l3.19-3.19C17.46 1.01 14.97 0 12 0 6.62 0 2.77 2.61 0.96 6.34l4.55 2.45C6.42 6.02 8.98 4.98 12 4.98z"
                                 fill="#EA4335" />
                         </svg>
-                        Continuar com Google
+                        {{ __('message.continue_with_google') }}
                     </button>
-
-                    <p class="text-center text-zinc-400 mt-8 sm:mt-10 text-sm sm:text-base">
-                        Ainda não tem uma conta?
-                        <a href="{{ route('register') }}" class="text-[#1DB954] hover:underline font-medium">Inscreva-se
-                        </a>
-                    </p>
                 </form>
+
+                <p class="text-center text-zinc-400 mt-8 sm:mt-10 text-sm sm:text-base">
+                    {{ __('message.no_account_yet') }}
+                    <a href="{{ route('register') }}"
+                        class="text-[#1DB954] hover:underline font-medium">{{ __('message.sign_up') }}
+                    </a>
+                </p>
+
             </div>
         </div>
 

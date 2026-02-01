@@ -33,14 +33,14 @@ class StoreUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required' => 'O nome é obrigatório.',
-            'email.required' => 'O e-mail é obrigatório.',
-            'email.email' => 'O e-mail deve ser válido.',
-            'email.unique' => 'Este e-mail já está em uso.',
-            'password.required' => 'A senha é obrigatória.',
-            'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
-            'password_confirmation.required' => 'A confirmação de senha é obrigatória.',
-            'password.confirmed' => 'As senhas não coincidem.',
+            'name.required' => __('message.name_required'),
+            'email.required' => __('message.email_required'),
+            'email.email' => __('message.email_invalid'),
+            'email.unique' => __('message.email_already_in_use'),
+            'password.required' => __('message.password_required'),
+            'password.min' => __('message.password_min_length'),
+            'password_confirmation.required' => __('message.password_confirmation_required'),
+            'password.confirmed' => __('message.passwords_do_not_match'),
         ];
     }
 }

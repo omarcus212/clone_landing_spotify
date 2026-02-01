@@ -66,6 +66,21 @@ body {
     background: #121212;
 }
 
+.input-disabled {
+    background: #f1f1f1;
+    cursor: not-allowed;
+}
+
+.btn-disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.btn-send {
+    background: #22c55e;
+    color: white;
+}
+
 /* Ajustes específicos para resolução 1366 × 768 (e próximas resoluções parecidas) */
 @media screen and (min-width: 1024px) and (max-width: 1400px) and (max-height: 800px) {
 
