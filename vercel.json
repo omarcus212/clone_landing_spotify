@@ -1,11 +1,12 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "public/index.php",
-      "use": "vercel-php@latest"
+      "use": "vercel-php"
     },
     {
-      "src": "public/build/**",
+      "src": "public/build/assets/**",
       "use": "@vercel/static"
     }
   ],
