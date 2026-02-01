@@ -1,10 +1,8 @@
 {
-  "version": 2,
-  "framework": null,
   "builds": [
     {
       "src": "public/index.php",
-      "use": "@vercel/php"
+      "use": "vercel-php@latest"
     },
     {
       "src": "public/build/**",
@@ -16,11 +14,5 @@
       "src": "/(.*)",
       "dest": "/public/index.php"
     }
-  ],
-  "env": {
-    "APP_ENV": "production",
-    "APP_DEBUG": "false"
-  },
-  "buildCommand": "php artisan optimize && npm run build",
-  "outputDirectory": "public"
+  ]
 }
