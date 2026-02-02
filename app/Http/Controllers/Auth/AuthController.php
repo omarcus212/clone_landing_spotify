@@ -59,6 +59,7 @@ class AuthController
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
+                'active' => true,
             ]);
 
             // // Gera OTP (6 caracteres aleatórios numéricos)
