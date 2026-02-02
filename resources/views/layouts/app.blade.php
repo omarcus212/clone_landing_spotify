@@ -60,8 +60,6 @@
             });
         </script>
     @endif
-
-    @vite('resources/js/layouts/lang.js')
 </body>
 
 </html>
