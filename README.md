@@ -95,3 +95,7 @@ Confirme que ainda está logado e o idioma ainda é português
 Faz logout
 Confirme que foi redirecionado para a página de login
 Verifique se o idioma ainda está em português após o logout
+
+https://resend.com/
+https://railway.com/
+https://supabase.com/
