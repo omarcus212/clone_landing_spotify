@@ -6,7 +6,12 @@ export default defineConfig({
     prefix: 'tw-',
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                'resources/js/user/profile.js',
+                'resources/js/layouts/lang.js'
+            ],
             refresh: true,
         }),
         tailwindcss(),
