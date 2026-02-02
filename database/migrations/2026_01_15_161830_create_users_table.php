@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('email', 150)->unique();
             $table->string('password');
             $table->string('img_avatar')->nullable();
-            $table->boolean('active')->default(false);
+            $table->boolean('active')->nullable();
             $table->string('google_id')->nullable()->unique();
             $table->timestamps();
         });
