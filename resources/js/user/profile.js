@@ -63,9 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('lang');
     if (!btn) return;
-
-    // Pega o locale atual do servidor (via meta tag ou atributo do <html>)
-    // Adicione isso no seu layout: <html lang="{{ app()->getLocale() }}">
     let lang = document.documentElement.getAttribute('lang') || 'pt';
     btn.textContent = lang.toUpperCase();
 
