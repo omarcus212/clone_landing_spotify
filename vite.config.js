@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
+import tailwindcss from 'tailwindcss';
 
 export default defineConfig({
-    prefix: 'tw-',
     plugins: [
         laravel({
             input: [
@@ -14,8 +13,12 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-        tailwindcss(),
     ],
+    css: {
+        postcss: {
+            plugins: [tailwindcss()],
+        },
+    },
     server: {
         watch: {
             ignored: ['**/storage/framework/views/**'],
