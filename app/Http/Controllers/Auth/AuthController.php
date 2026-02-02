@@ -55,26 +55,42 @@ class AuthController
         $data = $request->validated();
 
         try {
-            User::create([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
-                'active' => true,
-            ]);
 
-            // // Gera OTP (6 caracteres aleatórios numéricos)
-            // $otpCode = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);  // ex: '123456'
+            if (!config('services.mail_feature_enabled')) {
 
-            // // Armazena na sessão (expira automaticamente após o tempo de sessão padrão)
-            // session(['otp_code' => $otpCode, 'otp_email' => $data['email']]); // guarda OTP e e-mail para validação
+                User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => bcrypt($data['password']),
+                    'active' => true,
+                ]);
 
-            // // Envia e-mail com OTP
-            // Mail::raw("Seu código de verificação é: $otpCode. Ele expira em 10 minutos.", function ($message) use ($data) {
-            //     $message->to($data['email'])->subject('Verificação de Registro - Spotify Clone');
-            // });
+                return redirect()->route('login')->with('success', __('message.register_success'));
 
-            // // Redireciona para tela de OTP
-            return redirect()->route('login')->with('status', __('message.register_success'));
+            } else {
+
+                User::create([
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => bcrypt($data['password']),
+                ]);
+
+
+                // Gera OTP (6 caracteres aleatórios numéricos)
+                $otpCode = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);  // ex: '123456'
+
+                // Armazena na sessão (expira automaticamente após o tempo de sessão padrão)
+                session(['otp_code' => $otpCode, 'otp_email' => $data['email']]); // guarda OTP e e-mail para validação
+
+                // Envia e-mail com OTP
+                Mail::raw("Seu código de verificação é: $otpCode. Ele expira em 10 minutos.", function ($message) use ($data) {
+                    $message->to($data['email'])->subject('Verificação de Registro - Spotify Clone');
+                });
+
+                // Redireciona para tela de OTP
+                return redirect()->route('otp.verify');
+            }
+
 
         } catch (\Throwable $e) {
 
@@ -92,6 +108,13 @@ class AuthController
     public function sendResetLinkEmail(Request $request)
     {
         $request->validate(['email' => 'required|email']);
+
+        // Se a feature estiver desativada (Railway free)
+        if (!config('services.mail_feature_enabled')) {
+            return redirect()
+                ->route('login')
+                ->with('error', __('auth.email_feature_disabled'));
+        }
 
         // Enviar link de reset (o que você mostrou)
         $status = Password::sendResetLink(

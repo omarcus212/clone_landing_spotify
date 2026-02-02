@@ -1,101 +1,153 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Projeto Spotify Clone
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é um aplicativo web inspirado no Spotify, construído com Laravel (framework PHP), com autenticação de usuário, verificação de e-mail, redefinição de senha e login social com Google. Foi projetado para fins educacionais, com uma estrutura sólida para fácil manutenção, depuração e escalabilidade. O backend usa MySQL, o frontend é impulsionado por Vite e Tailwind CSS, e o deployment é no Railway com serviços de e-mail via Resend. Supabase é integrado para funcionalidades adicionais de banco de dados/autenticação (ex: real-time ou storage, configurável).
 
-## About Laravel
+## Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Registro e Login de Usuário: 1FA padrão (usuário/senha) com confirmação de e-mail via OTP (One-Time Password) enviado por e-mail.
+Autenticação com Google: Login/registro perfeito usando Google OAuth (define o usuário como ativo imediatamente, ignorando a confirmação de e-mail, pois o Google cuida da segurança).
+Confirmação de E-mail: Após registro (não Google), o usuário recebe OTP via e-mail; a conta é ativada após verificação.
+Redefinição de Senha: Fluxo seguro com link/token por e-mail; sem campo de e-mail necessário no formulário de reset (puxado da URL/sessão).
+Frontend: Vite para bundling, Tailwind CSS para estilização – responsivo para mobile, tablet e desktop (incluindo 1366x768).
+Banco de Dados: MySQL para dados principais; Supabase para funcionalidades suplementares (ex: atualizações em tempo real ou armazenamento de arquivos – configurável).
+Serviço de E-mail: Resend para envio de e-mails (confirmação, resets) – confiável e com camada gratuita disponível.
+Deployment: Railway para hospedagem (escalabilidade fácil, gerenciamento de variáveis de ambiente).
+Configuração de Desenvolvimento: Docker para ambiente local, mas início rápido com composer run dev.
+Segurança: Senhas hash, proteção CSRF, gerenciamento de sessão; pronto para 2FA (extensível).
+Estrutura: Código limpo e modular para fácil correção de bugs – controllers, services, views separados.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚄 Railway (Limitações do Plano Free)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Este projeto utiliza envio de e-mails para algumas funcionalidades, como:
 
-## Learning Laravel
+- Redefinição de senha
+- Verificação de conta (OTP / confirmação por e-mail)
+- Login social (Google) com possíveis notificações por e-mail
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+⚠️ **Importante:**  
+No plano gratuito do Railway, o envio de e-mails via SMTP/HTTPS pode não funcionar corretamente devido a limitações de infraestrutura e certificados SSL.  
+Por esse motivo, algumas funcionalidades foram **desativadas ou removidas** no ambiente do Railway:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- ❌ Redefinição de senha por e-mail
+- ❌ Confirmação de conta por e-mail (OTP)
+- ❌ Qualquer fluxo que dependa diretamente de envio de e-mail
 
-## Laravel Sponsors
+### 🔒 Comportamento do sistema no Railway
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Quando o envio de e-mail está desativado ou ocorre algum erro:
 
-### Premium Partners
+- O sistema **não exibe erros técnicos** para o usuário
+- O usuário é redirecionado para a tela de login
+- Uma mensagem amigável é exibida informando que o serviço de e-mail está indisponível no momento
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Essas funcionalidades funcionam normalmente em ambiente local quando o serviço de e-mail está configurado corretamente.
 
-## Contributing
+## Requisitos
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+PHP 8.1+ (testado em 8.3)
+Composer 2+
+Node.js 18+ & npm para Vite/Tailwind
+MySQL 8+ (ou compatível como MariaDB)
+Docker (opcional para dev local)
+Contas: Google Developer Console (para OAuth), Resend (para e-mails), Supabase (para DB/auth), Railway (para deploy)
 
-## Code of Conduct
+## 🚀 Como rodar o projeto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 1. Clone o repositório
 
-## Security Vulnerabilities
+```bash
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+git clone https://github.com/omarcus212/clone_landing_spotify
+cd clone_landing_spotify
+
+```
+
+## Configure as variáveis de ambiente e arquivos de configuração
+
+- Antes de subir o ambiente, você precisará configurar as variáveis de ambiente:
+
+* Adicione as seguintes linhas ao arquivo .env:
+
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1 ou backend-mysql(Docker)
+- DB_PORT=3306
+- DB_DATABASE=seu banco de dados ou (pj_spotify_laravel)
+- DB_USERNAME=root
+- DB_PASSWORD=
+
+* Utilize o arquivo .env.example como base, ele já possui as variáveis definidas para facilitar o - processo.
+
+* Atualize também os arquivos docker-compose.yml e phinx.yml com as informações do seu banco de dados, utilizando as variáveis que você definiu no .env.
+
+* ⚠️ Importante: Verifique se todas as variáveis de ambiente estão corretas antes de seguir para o próximo passo.
+
+## Suba o projeto local
+
+1. Entre na pasta do backend:
+
+```bash
+cd api
+```
+
+2. Instale as dependências PHP:
+
+```bash
+composer install
+```
+
+3. Gere a key do Laravel:
+
+```bash
+php artisan key:generate
+```
+
+4. Rode as migrations:
+
+```bash
+php artisan migrate
+```
+
+5. Rode os seeders:
+
+```bash
+php artisan db:seed
+```
+
+6. Inicie o servidor:
+
+```bash
+composer run dev
+```
+
+```bash
+O backend estará rodando em http://127.0.0.1:8000/login
+```
+
+## Google OAuth
+
+GOOGLE_CLIENT_ID=seu_google_client_id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=seu_google_secret
+GOOGLE_REDIRECT=http://localhost:8000/auth/google/callback
+
+## Resend E-mail
+
+MAIL_MAILER=resend
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+MAIL_FROM_ADDRESS=no-reply@seu_dominio.com
+
+## Uso
+
+Registro Normal: Preencha o form → receba OTP no e-mail → verifique → conta ativa → login.
+Login com Google: Clique no botão → autentique no Google → conta ativa automática (sem OTP).
+Reset de Senha: No perfil (logado) → clique "Redefinir" → receba link no e-mail → nova senha (sem campo de e-mail visível no form).
+Debug/Correção de Bugs: Estrutura sólida: Controllers em /app/Http/Controllers/Auth/, Views em /resources/views/auth/, Models em /app/Models/. Use dd() ou logs para debug. Rotas em /routes/web.php com nomes claros.
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-1. Login bem-sucedido
-
-Acesse a página de login
-Digite credenciais válidas e submeta
-Verifique se foi redirecionado para o dashboard (ou página esperada)
-Confirme que a mensagem de sucesso aparece em português
-
-2. Login com credenciais erradas
-
-Coloque um email válido mas senha errada
-Submeta e verifique se a mensagem de erro aparece em português
-Faça o mesmo com email inválido e senha qualquer
-
-3. Campos obrigatórios
-
-Deixe email e senha em branco e submeta
-Verifique se as mensagens de validação aparecem em português
-Teste também deixando apenas um dos campos preenchido
-
-4. Teste do idioma durante o login
-
-Esteja na página de login em português
-Troque para inglês usando o botão
-Submeta com credenciais erradas e confirme que o erro aparece em inglês
-Troque de volta para português e confirme que voltou
-
-5. Sessão após login
-
-Faz login normalmente
-Atualiza a página com F5
-Confirme que ainda está logado e o idioma ainda é português
-
-6. Logout e retorno
-
-Faz logout
-Confirme que foi redirecionado para a página de login
-Verifique se o idioma ainda está em português após o logout
-
 https://resend.com/
 https://railway.com/
 https://supabase.com/
+
+sincere-determination-production.up.railway.app/

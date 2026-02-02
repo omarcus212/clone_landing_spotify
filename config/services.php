@@ -44,6 +44,8 @@ return [
         ],
     ],
 
+    'mail_feature_enabled' => env('MAIL_FEATURE_ENABLED', true),
+
 
 
 ];
