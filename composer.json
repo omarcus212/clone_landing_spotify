@@ -17,7 +17,8 @@
         "laravel/tinker": "^2.10.1",
         "php-http/guzzle7-adapter": "^1.1",
         "pragmarx/google2fa-laravel": "^2.3",
-        "railsware/mailtrap-php": "^3.10"
+        "railsware/mailtrap-php": "^3.10",
+        "resend/resend-laravel": "^1.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -60,8 +61,7 @@
             "@php artisan test"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
-            "@php artisan boost:update --ansi"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "pre-package-uninstall": [
             "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
